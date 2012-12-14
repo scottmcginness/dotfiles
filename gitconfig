@@ -1,0 +1,29 @@
+# Most of these came from http://git.wiki.kernel.org/index.php/Aliases
+[user]
+	name = Scott McGinness
+	email = mcginness.s@gmail.com
+[alias]
+	co = checkout
+	ci = commit
+    civ = commit --verbose
+	st = status
+	br = branch
+	undo = reset --hard
+	cn = clone
+	cob = checkout -b
+	mg = merge
+	mgb = merge --no-ff
+	di = diff
+	dic = diff --cached
+    sp = stash pop
+    ski = stash --keep-index
+[color]
+	ui = true
+[giggle]
+	main-window-maximized = true
+	main-window-geometry = 0x0+0+0
+	history-view-vpane-position = 336
+	main-window-view = HistoryView
+	file-view-vpane-position = 414
+[core]
+	pager = less -FRSX

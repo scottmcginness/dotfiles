@@ -1,0 +1,51 @@
+#!/usr/bin/env ruby
+require 'pathname'
+
+class Pathname
+  def hidden?
+    basename.to_s[0] == '.'
+  end
+end
+
+module Dotfile
+  class Installer
+    def initialize(vundle)
+      @vundle = vundle
+      directory = Pathname.new(__FILE__).expand_path.dirname
+      @dotfiles = directory.children.reject(&:hidden?)
+      @home = Pathname.new('~').expand_path
+    end
+
+    def install
+      @dotfiles.each do |dotfile|
+        home_dotfile = @home.join(Pathname.new('.' + dotfile.basename.to_s))
+        home_dotfile.delete if home_dotfile.exist?
+        File.symlink(dotfile, home_dotfile)
+      end
+
+      install_vundle if @vundle
+    end
+
+    def install_vundle
+      vim_home = Pathname.new(@home.join('.vim'))
+      if !vim_home.exist?
+        vim_home.mkdir
+      end
+
+      vim_bundle = vim_home.join('bundle')
+      if !vim_bundle.exist?
+        vim_bundle.mkdir
+      end
+
+      vundle_path = vim_bundle.join('vundle')
+      uri = "https://github.com/gmarik/vundle.git"
+
+      unless vundle_path.exist?
+        system("git clone #{uri} #{vundle_path}")
+        system("vim +BundleInstall! +qall")
+      end
+    end
+  end
+end
+
+Dotfile::Installer.new(true).install
