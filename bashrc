@@ -131,5 +131,7 @@ export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Sandbox/Projects
 export PIP_DOWNLOAD_CACHE=$WORKON_HOME/.pip-cache
 export PIP_VIRTUALENV_BASE=$WORKON_HOME
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
+export VIRTUAL_ENV_DISABLE_PROMPT=1
 export PIP_RESPECT_VIRTUALENV=true
 source /usr/local/bin/virtualenvwrapper.sh
