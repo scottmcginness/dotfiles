@@ -35,6 +35,20 @@ case "$TERM" in
     xterm-color) color_prompt=yes;;
 esac
 
+prompt_logos=yes
+function prompt_logo {
+    logo=""
+    if [[ $prompt_logos = yes ]]; then
+        case "$1" in
+            git)  logo="⏧ ";;
+            hg)   logo="🜐 ";;
+            rvm)  logo="💎 ";;
+            venv) logo="🐍 ";;
+        esac
+    fi
+    echo "$logo"
+}
+
 # enable tab completion in git
 source ~/.git-completion.bash
 
@@ -50,7 +64,30 @@ function parse_git_dirty {
 
 # print current branch (with dirty status) to prompt
 function parse_git_branch {
-  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1$(parse_git_dirty)]/"
+    git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/($(prompt_logo 'git')\1$(parse_git_dirty))/"
+}
+
+function parse_hg_dirty {
+ [[ $(hg status 2> /dev/null | tail -n1) != "" ]] && echo "*"
+}
+
+function parse_hg_branch {
+hg branch 2> /dev/null | sed -e "s/\(.*\)/($(prompt_logo 'hg')\1$(parse_hg_dirty))/"
+}
+
+function parse_virtualenv {
+    if [[ "$VIRTUAL_ENV" != "" ]]; then
+        echo "($(prompt_logo 'venv')$(basename "$VIRTUAL_ENV"))"
+    else
+        echo ""
+    fi
+}
+
+show_gemset=no
+function parse_rvm_gemset {
+if [[ "$show_gemset" = yes ]]; then
+rvm gemset list 2> /dev/null | grep "=>" | sed -e "s/^=> (\?\([^)]*\))\?/($(prompt_logo 'rvm')\1)/"
+fi
 }
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
@@ -76,7 +113,7 @@ function nocolor {
     echo -ne "\[\033[0m\]"
 }
 if [ "$color_prompt" = yes ]; then
-    PS1="${debian_chroot:+($debian_chroot)}$(color 22)\u@\h$(nocolor):$(color 25)\w$(color 131)"'$(parse_git_branch)'"\n$(color 22)\$$(nocolor) "
+    PS1="${debian_chroot:+($debian_chroot)}$(color 22)\u@\h$(nocolor):$(color 25)\w$(color 131)"'$(parse_virtualenv)$(parse_git_branch)$(parse_hg_branch)$(parse_rvm_gemset)'"\n$(color 22)\$$(nocolor) "
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
