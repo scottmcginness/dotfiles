@@ -121,15 +121,10 @@ fi
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
 
-PS4='+ $(date "+%s.%N")\011'
-exec 3>&2 2>/tmp/bashstart.$$.log
-set -x
-
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+if [ -n "$BASH_VERSION" -a -n "$PS1" -a -z "$BASH_COMPLETION" ]  &&
+   [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
-set +x
-exec 2>&3 3>&-
 
 export PYTHONSTARTUP="$HOME/.pythonrc"
 export WORKON_HOME=$HOME/.virtualenvs
