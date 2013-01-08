@@ -120,7 +120,8 @@ endif
 noremap <leader>lc :set list!<CR>
 
 " Toggle paste mode
-nnoremap <F6> :set paste!<CR>
+nnoremap <silent> <F6> :set paste!<CR>
+inoremap <silent> <F6> <ESC>:set paste!<CR>a
 
 " Options for python.vim
 let python_highlight_all = 1
