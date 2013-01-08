@@ -70,6 +70,7 @@ set hidden           " Hide unsaved buffers
 set number           " Show line numbers
 set t_Co=256         " This terminal has 256 colours
 set visualbell
+set modeline
 if has("gui_running")
     colorscheme desert
 end
