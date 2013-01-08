@@ -4,7 +4,6 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 " List bundles
-
 Bundle 'gmarik/vundle'
 
 Bundle 'tpope/vim-rails'
@@ -199,7 +198,7 @@ set noswapfile
 set nobackup
 
 " Set ack to be the default grep
-set grepprg=ack-grep\ -a
+set grepprg="ack-grep -a"
 let g:ackprg="ack-grep -H --nogroup --column"
 nnoremap <leader>aw :Ack <cword><CR>
 nnoremap <leader>a :Ack 
@@ -289,6 +288,7 @@ nnoremap <F1> :h
 autocmd BufWinEnter .git/COMMIT_EDITMSG 0
 
 " Shortcuts for fugitive
+" (Note that <CR> is deliberately left off some of these)
 nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gc :Gcommit --verbose<CR>
 nnoremap <leader>gw :Gwrite
