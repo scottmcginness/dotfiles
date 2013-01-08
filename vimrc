@@ -331,26 +331,26 @@ autocmd BufWinEnter .git/COMMIT_EDITMSG 0
 " (Note that <CR> is deliberately left off some of these)
 nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gc :Gcommit --verbose<CR>
-nnoremap <leader>gw :Gwrite
-nnoremap <leader>gl :Glog
-nnoremap <leader>gd :Gdiff
-nnoremap <leader>gr :Gremove 
-nnoremap <leader>gb :Gblame 
-nnoremap <leader>gg :Git 
+nnoremap <leader>gw :Gwrite<SPACE>
+nnoremap <leader>gl :Glog<SPACE>
+nnoremap <leader>gd :Gdiff<SPACE>
+nnoremap <leader>gr :Gremove<SPACE>
+nnoremap <leader>gb :Gblame<SPACE>
+nnoremap <leader>gg :Git<SPACE>
 nnoremap <leader>dit :diffthis<CR>
 
 " Shortcuts for rails.vim
-nnoremap <leader>rm :Rmodel 
-nnoremap <leader>rs :Rspec 
+nnoremap <leader>rm :Rmodel<SPACE>
+nnoremap <leader>rc :Rcontroller<SPACE>
+nnoremap <leader>rv :Rview<SPACE>
+nnoremap <leader>rs :Rspec<SPACE>
 nnoremap <leader>rsm :Rspec models/
 nnoremap <leader>rsc :Rspec controllers/
 nnoremap <leader>rsv :Rspec views/
-nnoremap <leader>rf :Rfactory 
-nnoremap <leader>rv :Rview
-nnoremap <leader>rc :Rcontroller 
-nnoremap <leader>rg :Rgenerate
+nnoremap <leader>rf :Rfactory<SPACE>
+nnoremap <leader>rg :Rgenerate<SPACE>
 nnoremap <leader># :AV<CR>
-nnoremap <leader>r :Rake 
-nnoremap <leader>p :!pry<CR>
+nnoremap <leader>r :Rake<SPACE>
+nnoremap <leader>p :!bundle exec pry<CR>
 nnoremap <leader>pc :Rscript console<CR>
-vnoremap <leader>re :Rextract 
+vnoremap <leader>re :Rextract<SPACE>
