@@ -354,3 +354,13 @@ nnoremap <leader>r :Rake<SPACE>
 nnoremap <leader>p :!bundle exec pry<CR>
 nnoremap <leader>pc :Rscript console<CR>
 vnoremap <leader>re :Rextract<SPACE>
+
+" Non-mappings
+" (stuff deliberately left out because there are better ways of doing things)
+"
+" Because scrolling around buffers is like holding ‘j’ or ‘k’
+" nnoremap <SOMETHING> :bn
+" nnoremap <SOMETHING> :bp
+"
+" Because repeating ‘f’, ‘F’, ‘t’ or ‘T’ is pretty darn useful
+" nnoremap ; <SOMETHING>
