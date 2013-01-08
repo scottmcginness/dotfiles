@@ -275,6 +275,25 @@ nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
 nnoremap <leader>bi :BundleInstall<CR>
 
+" Let’s not use escape in normal mode any more. Be very annoying instead
+let s:escCounter = 0
+function! AnnoyingEscape()
+    silent bnext
+    let s:escCounter += 1
+    if has("multi_byte")
+        let s:backCommand = "‘:bp<CR>’"
+    else
+        let s:backCommand = "`:bp<CR>'"
+    endif
+    let s:message = "Oops, <ESC>(#%s) in normal mode. Use %s to get back."
+    echom printf(s:message, s:escCounter, s:backCommand)
+endfunction
+if has("termresponse")
+    autocmd TermResponse * nnoremap <ESC> <ESC>:call AnnoyingEscape()<CR>
+else
+    nnoremap <ESC> <ESC>:call AnnoyingEscape()<CR>
+endif
+
 " Intuitive immediate newline when in insert mode
 imap <C-j> <ESC>A<CR>
 inoremap <C-k> <ESC>O
