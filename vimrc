@@ -318,6 +318,9 @@ nnoremap vif zaVzaoj<ESC>'>kV'<
 " Sane yank to end of line
 nnoremap Y y$
 
+" Join upwards (‘:!man <SOMETHING>’ isn’t so bad)
+nnoremap K kJ
+
 " Use F1 for help
 nnoremap <F1> :h 
 
