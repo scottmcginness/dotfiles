@@ -79,10 +79,6 @@ end
 let mapleader = ","
 let g:mapleader = ","
 
-" Quick escape
-inoremap jk <ESC>
-cnoremap jk <ESC>
-
 " Settings local to filetypes
 autocmd FileType html setlocal tabstop=2 softtabstop=2 shiftwidth=2
 autocmd FileType ruby setlocal tabstop=2 softtabstop=2 shiftwidth=2
