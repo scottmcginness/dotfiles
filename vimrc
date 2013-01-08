@@ -70,6 +70,9 @@ set hidden           " Hide unsaved buffers
 set number           " Show line numbers
 set t_Co=256         " This terminal has 256 colours
 set visualbell
+if has("gui_running")
+    colorscheme desert
+end
 
 " Leader key
 let mapleader = ","
@@ -112,7 +115,11 @@ autocmd BufWinLeave * silent! mkview
 autocmd BufWinEnter * silent! loadview
 
 " Options for showing special chars
-set listchars=tab:⇥\ ,eol:↴
+if has("multi_byte")
+    set listchars=eol:↴,tab:⇥\ ,trail:˽,extends:⍈,precedes:⍇,conceal:🔒,nbsp:␠
+else
+    set listchars=eol:$,tab:->,trail:_,extends:>,precedes:<,conceal:*,nbsp:^
+endif
 noremap <leader>lc :set list!<CR>
 
 " Toggle paste mode
@@ -140,10 +147,17 @@ let g:surround_47 = "{% extends \"\r\" %}"
 let g:AutoPairsShortcutToggle = '<leader>ap'
 
 " Options for syntastic
-let g:syntastic_error_symbol = '😽'
-let g:syntastic_warning_symbol = '😒'
-let g:syntastic_style_error_symbol = '✎'
-let g:syntastic_style_warning_symbol = '✎'
+if has("multi_byte")
+    let g:syntastic_error_symbol = '😽'
+    let g:syntastic_warning_symbol = '😒'
+    let g:syntastic_style_error_symbol = '✎'
+    let g:syntastic_style_warning_symbol = '✎'
+else
+    let g:syntastic_error_symbol = 'E'
+    let g:syntastic_warning_symbol = 'W'
+    let g:syntastic_style_error_symbol = '!'
+    let g:syntastic_style_warning_symbol = '?'
+endif
 let g:syntastic_enable_highlighting = 0
 let g:syntastic_auto_loc_list = 1
 
@@ -250,6 +264,9 @@ nnoremap <silent> <leader>shs :b$<CR>
 
 " Options for powerline
 let g:Powerline_symbols = 'fancy'
+if has("win32")
+    set guifont="Consolas for Powerline FixedD:h9"
+endif
 
 " Options for MiniBufExplorer
 let g:miniBufExplorerMoreThanOne = 3  " Don't interfere with fugitive on :Gdiff
