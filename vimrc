@@ -294,6 +294,9 @@ else
     nnoremap <ESC> <ESC>:call AnnoyingEscape()<CR>
 endif
 
+" Use TAB to get from normal into command mode
+nnoremap <TAB> :
+
 " Intuitive immediate newline when in insert mode
 imap <C-j> <ESC>A<CR>
 inoremap <C-k> <ESC>O
