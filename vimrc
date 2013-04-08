@@ -341,6 +341,13 @@ nnoremap <leader>p :!bundle exec pry<CR>
 nnoremap <leader>pc :Rscript console<CR>
 vnoremap <leader>re :Rextract<SPACE>
 
+" Highlight *.carinata files as python with some extra keywords
+autocmd BufNewFile,BufRead *.carinata call SetupCarinata()
+function SetupCarinata()
+    setlocal filetype=python
+    syntax keyword pythonStatement describe context before let it
+endfunction
+
 " Non-mappings
 " (stuff deliberately left out because there are better ways of doing things)
 "
