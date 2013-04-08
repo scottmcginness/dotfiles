@@ -213,7 +213,7 @@ set sessionoptions=blank,buffers,curdir,folds,globals,help,localoptions,options,
 let g:session_autoload = 'no'
 
 " Undo options
-if has("undo")
+if has("persistent_undo")
     set undodir=~/.vim/undodir
     set undofile
     set undolevels=1000 "Max number of changes that can be undone
