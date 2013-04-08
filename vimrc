@@ -113,9 +113,17 @@ autocmd BufWinEnter * silent! loadview
 
 " Options for showing special chars
 if has("multi_byte")
-    set listchars=eol:↴,tab:⇥\ ,trail:˽,extends:⍈,precedes:⍇,conceal:🔒,nbsp:␠
+    if has("conceal")
+        set listchars=eol:↴,tab:⇥\ ,trail:˽,extends:⍈,precedes:⍇,nbsp:␠,conceal:🔒
+    else
+        set listchars=eol:↴,tab:⇥\ ,trail:˽,extends:⍈,precedes:⍇,nbsp:␠
+    endif
 else
-    set listchars=eol:$,tab:->,trail:_,extends:>,precedes:<,conceal:*,nbsp:^
+    if has("conceal")
+        set listchars=eol:$,tab:->,trail:_,extends:>,precedes:<,nbsp:^,conceal:*
+    else
+        set listchars=eol:$,tab:->,trail:_,extends:>,precedes:<,nbsp:^
+    endif
 endif
 noremap <leader>lc :set list!<CR>
 
@@ -205,10 +213,12 @@ set sessionoptions=blank,buffers,curdir,folds,globals,help,localoptions,options,
 let g:session_autoload = 'no'
 
 " Undo options
-set undodir=~/.vim/undodir
-set undofile
-set undolevels=1000 "Max number of changes that can be undone
-set undoreload=10000 "Max number of line to save for undo on a buffer
+if has("undo")
+    set undodir=~/.vim/undodir
+    set undofile
+    set undolevels=1000 "Max number of changes that can be undone
+    set undoreload=10000 "Max number of line to save for undo on a buffer
+endif
 
 " Don't bother with swaps and backups
 set noswapfile
