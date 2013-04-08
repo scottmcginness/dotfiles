@@ -4,7 +4,8 @@
 	email = mcginness.s@gmail.com
 [alias]
 	co = checkout
-	ci = commit
+	ci = commit --verbose
+	cia = commit -a --verbose
     civ = commit --verbose
 	st = status
 	br = branch
