@@ -156,8 +156,13 @@ else
     let g:syntastic_style_error_symbol = '!'
     let g:syntastic_style_warning_symbol = '?'
 endif
+let g:syntastic_mode_map = {'mode': 'passive',
+                               \ 'active_filetypes': [],
+                               \ 'passive_filetypes': [] }
 let g:syntastic_enable_highlighting = 0
 let g:syntastic_auto_loc_list = 1
+nnoremap <leader>st :SyntasticToggleMode<CR>
+nnoremap <leader>sc :SyntasticCheck<CR>
 
 " Options for vim-rails
 let g:rails_ctags_arguments = '--languages=-javascript '.$HOME.'/.rvm/gems/'.system("rvm current | tr -d '\n'").'/gems'
