@@ -52,6 +52,7 @@ Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'ervandew/supertab'
 Bundle 'xolox/vim-session'
 Bundle 'rbgrouleff/bclose.vim'
+Bundle 'hynek/vim-python-pep8-indent'
 
 " Various reasonable options
 syntax on
@@ -133,6 +134,7 @@ cnoremap <expr> bd (getcmdtype() == ':' ? 'Bclose' : 'bd')
 nnoremap <F2> :NERDTreeToggle<CR>
 autocmd FileType nerdtree cnoreabbrev <buffer> bd <nop>
 let g:NERDTreeWinSize = 32
+let NERDTreeIgnore = ['\.pyc$']
 
 " Options for ragtag
 let g:ragtag_global_maps = 1
@@ -335,6 +337,9 @@ nnoremap <leader>r :Rake<SPACE>
 nnoremap <leader>p :!bundle exec pry<CR>
 nnoremap <leader>pc :Rscript console<CR>
 vnoremap <leader>re :Rextract<SPACE>
+
+" Shortcut for python debug line
+nnoremap <leader>bp mmOimport ipdb; ipdb.set_trace()<ESC>`m
 
 " Non-mappings
 " (stuff deliberately left out because there are better ways of doing things)
