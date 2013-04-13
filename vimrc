@@ -114,9 +114,17 @@ autocmd BufWinEnter * silent! loadview
 
 " Options for showing special chars
 if has("multi_byte")
-    set listchars=eol:↴,tab:⇥\ ,trail:˽,extends:⍈,precedes:⍇,conceal:🔒,nbsp:␠
+    if has("conceal")
+        set listchars=eol:↴,tab:⇥\ ,trail:˽,extends:⍈,precedes:⍇,nbsp:␠,conceal:🔒
+    else
+        set listchars=eol:↴,tab:⇥\ ,trail:˽,extends:⍈,precedes:⍇,nbsp:␠
+    endif
 else
-    set listchars=eol:$,tab:->,trail:_,extends:>,precedes:<,conceal:*,nbsp:^
+    if has("conceal")
+        set listchars=eol:$,tab:->,trail:_,extends:>,precedes:<,nbsp:^,conceal:*
+    else
+        set listchars=eol:$,tab:->,trail:_,extends:>,precedes:<,nbsp:^
+    endif
 endif
 noremap <leader>lc :set list!<CR>
 
@@ -158,8 +166,13 @@ else
     let g:syntastic_style_error_symbol = '!'
     let g:syntastic_style_warning_symbol = '?'
 endif
+let g:syntastic_mode_map = {'mode': 'passive',
+                               \ 'active_filetypes': [],
+                               \ 'passive_filetypes': [] }
 let g:syntastic_enable_highlighting = 0
 let g:syntastic_auto_loc_list = 1
+nnoremap <leader>st :SyntasticToggleMode<CR>
+nnoremap <leader>sc :SyntasticCheck<CR>
 
 " Options for vim-rails
 let g:rails_ctags_arguments = '--languages=-javascript '.$HOME.'/.rvm/gems/'.system("rvm current | tr -d '\n'").'/gems'
@@ -202,10 +215,12 @@ set sessionoptions=blank,buffers,curdir,folds,globals,help,localoptions,options,
 let g:session_autoload = 'no'
 
 " Undo options
-set undodir=~/.vim/undodir
-set undofile
-set undolevels=1000 "Max number of changes that can be undone
-set undoreload=10000 "Max number of line to save for undo on a buffer
+if has("persistent_undo")
+    set undodir=~/.vim/undodir
+    set undofile
+    set undolevels=1000 "Max number of changes that can be undone
+    set undoreload=10000 "Max number of line to save for undo on a buffer
+endif
 
 " Don't bother with swaps and backups
 set noswapfile
@@ -338,8 +353,15 @@ nnoremap <leader>p :!bundle exec pry<CR>
 nnoremap <leader>pc :Rscript console<CR>
 vnoremap <leader>re :Rextract<SPACE>
 
-" Shortcut for python debug line
+"Shortcut for python debug line
 nnoremap <leader>bp mmOimport ipdb; ipdb.set_trace()<ESC>`m
+
+" Highlight *.carinata files as python with some extra keywords
+autocmd BufNewFile,BufRead *.carinata call SetupCarinata()
+function SetupCarinata()
+    setlocal filetype=python
+    syntax keyword pythonStatement describe context before let it
+endfunction
 
 " Non-mappings
 " (stuff deliberately left out because there are better ways of doing things)

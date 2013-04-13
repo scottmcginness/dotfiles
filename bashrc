@@ -52,6 +52,9 @@ function prompt_logo {
 # enable tab completion in git
 source ~/.git-completion.bash
 
+# Enable tab completion for Fabric
+source ~/.fab-completion.sh
+
 # using git status for the prompt
 # can currently only be used in colour mode
 # uncomment to disable
