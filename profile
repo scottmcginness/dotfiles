@@ -24,3 +24,8 @@ fi
 if [[ -s "$HOME/.rvm/scripts/rvm" ]] ; then
     export RUBY_BIN=`which ruby | sed 's/ruby$//'`
 fi
+
+if [ -z "$ANDROID_HOME" ]; then
+    export ANDROID_HOME="$HOME/Development/android-sdk-linux"
+fi
+export PATH="$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$PATH"
