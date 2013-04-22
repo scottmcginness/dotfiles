@@ -93,6 +93,7 @@ set scrolloff=3
 nnoremap / /\v
 cnoremap %s/ %s/\v
 set incsearch
+set ignorecase
 set hlsearch
 hi Search term=NONE cterm=NONE ctermfg=NONE ctermbg=94 gui=NONE guifg=NONE guibg=#875f00
 hi IncSearch term=NONE cterm=NONE ctermfg=NONE ctermbg=100 gui=NONE guifg=NONE guibg=#878700
