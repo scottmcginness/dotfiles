@@ -136,6 +136,14 @@ inoremap <silent> <F6> <ESC>:set paste!<CR>a
 " Options for python.vim
 let python_highlight_all = 1
 
+" Python tab completion
+let &tags = $VIRTUAL_ENV."/tags,-/tags;/"
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+
+" SuperTab options
+let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabClosePreviewOnPopupClose = 1
+
 " Close buffer without closing window
 cnoremap <expr> bd (getcmdtype() == ':' ? 'Bclose' : 'bd')
 
