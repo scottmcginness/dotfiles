@@ -366,11 +366,9 @@ vnoremap <leader>re :Rextract<SPACE>
 nnoremap <leader>bp mmOimport ipdb; ipdb.set_trace()<ESC>`m
 
 " Highlight *.carinata files as python with some extra keywords
-autocmd BufNewFile,BufRead *.carinata call SetupCarinata()
-function SetupCarinata()
-    setlocal filetype=python
-    syntax keyword pythonStatement describe context before let it
-endfunction
+autocmd BufNewFile,BufRead *.carinata
+    \ setlocal filetype=python
+    \ syntax keyword pythonStatement describe context before let it
 
 " Non-mappings
 " (stuff deliberately left out because there are better ways of doing things)
