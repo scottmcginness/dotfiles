@@ -6,7 +6,6 @@
 	co = checkout
 	ci = commit --verbose
 	cia = commit -a --verbose
-    civ = commit --verbose
 	st = status
 	br = branch
 	undo = reset --hard
@@ -18,6 +17,11 @@
 	dic = diff --cached
     sp = stash pop
     ski = stash --keep-index
+    com = checkout master
+    fo = fetch origin
+    mgom = merge origin/master
+    pomt = pull origin master --tags
+    psht = push origin master --tags
 [color]
 	ui = true
 [giggle]
