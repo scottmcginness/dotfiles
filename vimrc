@@ -329,6 +329,15 @@ nnoremap K kJ
 " Use F1 for help
 nnoremap <F1> :h 
 
+" Change then paste idiom
+" The keys following g@ determine what changes,
+" but this always pastes from the default register
+nnoremap <silent> cp :set opfunc=ChangePaste<CR>g@
+function! ChangePaste(type, ...)
+    silent execute "normal! `[v`]\"_c"
+    silent execute "normal! p"
+endfunction
+
 " Always start at top of gitcommit file
 autocmd BufWinEnter .git/COMMIT_EDITMSG 0
 
