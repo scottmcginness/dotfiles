@@ -183,6 +183,10 @@ export VIRTUAL_ENV_DISABLE_PROMPT=1
 export PIP_RESPECT_VIRTUALENV=true
 source /usr/local/bin/virtualenvwrapper.sh
 
+if [ -f "$WORKON_HOME/django_bash_completion" ]; then
+    . $WORKON_HOME/django_bash_completion
+fi
+
 # Tell NuGet that it can package restore
 # See http://blog.ianbattersby.com/2012/08/04/using-nuget-with-mono/
 export EnableNuGetPackageRestore=true
