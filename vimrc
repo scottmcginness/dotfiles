@@ -353,6 +353,13 @@ nnoremap <leader>gb :Gblame<SPACE>
 nnoremap <leader>gg :Git<SPACE>
 nnoremap <leader>dit :diffthis<CR>
 
+function! GitTagLog()
+    execute "normal! G"
+    read !echo "Bumping $GIT_TAG_LATEST to $GIT_TAG_BUMPED" | sed 's/^/\# /'
+    read !git log `git tagl`..HEAD --oneline | sed 's/^/\# /'
+    execute "normal! gg"
+endfunction
+
 " Shortcuts for rails.vim
 nnoremap <leader>rm :Rmodel<SPACE>
 nnoremap <leader>rc :Rcontroller<SPACE>

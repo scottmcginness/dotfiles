@@ -22,6 +22,9 @@
     mgom = merge origin/master
     pomt = pull origin master --tags
     psht = push origin master --tags
+    tagl = !git tag | sort -V | tail -1
+    tagv = "!f(){ git tag -a -s v$1; }; f"
+    bump = "!f(){ export GIT_TAG_LATEST=$(git tagl); export GIT_TAG_BUMPED=$(bump $1 $GIT_TAG_LATEST); EDITOR='vim +call\\ GitTagLog\\(\\)' git tag -a -s $GIT_TAG_BUMPED; }; f"
 [color]
 	ui = true
 [giggle]
