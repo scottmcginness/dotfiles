@@ -1,0 +1,52 @@
+#!/usr/bin/env python
+# coding: utf-8
+# Shortcut for Django’s manage.py, and from any directory below it
+import imp
+import os
+import sys
+from django.core.management import execute_manager
+
+ALIASES = {
+    'sh': 'shell_plus',
+    'ru': 'runserver_plus',
+    'sm': 'schemamigration',
+    'mi': 'migrate'
+}
+
+def walk_up(path):
+    at_top = False
+    while not at_top:
+        yield path
+        parent_path = os.path.dirname(path)
+        if parent_path == path:
+            at_top = True
+        else:
+            path = parent_path
+
+def find_project_dir(path):
+    for parent in walk_up(path):
+        if "settings.py" in os.listdir(parent):
+            return parent
+    else:
+        sys.stderr.write("""\
+Error: Can't find the file 'settings.py' in the directory containing %r.
+It appears you've customized things.
+You'll have to run django-admin.py, passing it your settings module.
+
+""" % __file__)
+        sys.exit(1)
+
+if __name__ == "__main__":
+    project_dir = find_project_dir(os.path.abspath("."))
+    sys.path.insert(0, project_dir)
+    sys.argv[0] = os.path.join(project_dir, "manage.py")
+    os.chdir(project_dir)
+
+    if len(sys.argv) >= 2:
+        for alias, real in ALIASES.iteritems():
+            if sys.argv[1] == alias:
+                sys.argv[1] = real
+
+    import settings
+    execute_manager(settings)
+
