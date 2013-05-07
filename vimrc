@@ -325,6 +325,12 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 nnoremap <C-w>s :vsplit 
 
+" Resize windows faster
+nnoremap <silent> <C-w>- :execute "resize " . (winheight(0) * 2/3)<CR>
+nnoremap <silent> <C-w>+ :execute "resize " . (winheight(0) * 3/2)<CR>
+nnoremap <silent> <C-w>< :execute "vertical resize " . (winwidth(0) * 3/4)<CR>
+nnoremap <silent> <C-w>> :execute "vertical resize " . (winwidth(0) * 4/3)<CR>
+
 " Visually highlight folds
 nnoremap vaf zaVzao
 nnoremap vif zaVzaoj<ESC>'>kV'<
