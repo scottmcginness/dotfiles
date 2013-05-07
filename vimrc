@@ -297,6 +297,10 @@ endif
 let g:miniBufExplorerMoreThanOne = 3  " Don't interfere with fugitive on :Gdiff
 nnoremap <F3> :TMiniBufExplorer<CR><C-w><C-p>
 
+" Options for GitGutter
+let g:gitgutter_enabled = 0
+nnoremap <silent> <leader>gt :GitGutterToggle<CR>
+
 " ~/.vimrc shortcuts
 nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
