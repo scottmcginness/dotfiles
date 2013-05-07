@@ -166,13 +166,6 @@ if [ -n "$BASH_VERSION" -a -n "$PS1" -a -z "$BASH_COMPLETION" ]  &&
     . /etc/bash_completion
 fi
 
-# Setup fuzzy completion
-if [ -f "$HOME"/.fuzzy_bash_completion ]; then
-    source "$HOME"/.fuzzy_bash_completion
-    fuzzy_replace_filedir_xspec
-    fuzzy_setup_for_command cd
-fi
-
 export PYTHONSTARTUP="$HOME/.pythonrc"
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Sandbox/Projects
