@@ -301,6 +301,12 @@ nnoremap <leader>bi :BundleInstall<CR>
 
 " Use TAB to get from normal into command mode
 nnoremap <TAB> :
+nnoremap <TAB>w :w<CR>
+nnoremap <TAB>q :q<CR>
+nnoremap <TAB>d :Bclose<CR>
+nnoremap <TAB>e :e<Space>
+nnoremap <TAB>` :!<Up><CR>
+nnoremap <TAB>1 :!
 
 " Intuitive immediate newline when in insert mode
 imap <C-j> <ESC>A<CR>
