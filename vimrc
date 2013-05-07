@@ -51,6 +51,9 @@ Bundle 'ervandew/supertab'
 Bundle 'xolox/vim-session'
 Bundle 'rbgrouleff/bclose.vim'
 Bundle 'hynek/vim-python-pep8-indent'
+Bundle 'jmcantrell/vim-virtualenv'
+Bundle 'airblade/vim-gitgutter'
+Bundle 'bkad/CamelCaseMotion'
 
 " Various reasonable options
 syntax on
