@@ -402,9 +402,9 @@ nnoremap <leader>bp mmOimport ipdb; ipdb.set_trace()<ESC>`m
 autocmd BufNewFile,BufRead *.carinata call SetupCarinata()
 function! SetupCarinata()
     setlocal filetype=python
-    syn match   carinataKeyword	/^\s*\%(describe\|context\|before\|it\|let\)/
+    syn match   carinataKeyword	/^\s*\%(describe\|context\|before\|after\|it\|let\)/
       \ nextgroup=pythonFunction skipwhite
-    syn region  carinataBlockFold	start="^\z(\s*\)\%(describe\|context\|before\|it\|let\)\>"
+    syn region  carinataBlockFold	start="^\z(\s*\)\%(describe\|context\|before\|after\|it\|let\)\>"
       \ end="\ze\%(\s*\n\)\+\%(\z1\s\)\@!." fold transparent
     highlight link carinataKeyword pythonStatement
 endfunction
