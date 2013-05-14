@@ -31,7 +31,6 @@ Bundle 'vim-scripts/django.vim'
 
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'Lokaltog/vim-easymotion'
-Bundle 'Lokaltog/python-syntax'
 
 Bundle 'gregsexton/MatchTag'
 Bundle 'gregsexton/gitv'
@@ -54,6 +53,7 @@ Bundle 'hynek/vim-python-pep8-indent'
 Bundle 'jmcantrell/vim-virtualenv'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'bkad/CamelCaseMotion'
+Bundle 'Python-Syntax-Folding'
 
 " Various reasonable options
 syntax on
@@ -402,9 +402,13 @@ nnoremap <leader>bp mmOimport ipdb; ipdb.set_trace()<ESC>`m
 autocmd BufNewFile,BufRead *.carinata call SetupCarinata()
 function! SetupCarinata()
     setlocal filetype=python
+    syn match   carinataKeyword	/^\s*\%(describe\|context\|before\|it\|let\)/
+      \ nextgroup=pythonFunction skipwhite
+    syn region  carinataBlockFold	start="^\z(\s*\)\%(describe\|context\|before\|it\|let\)\>"
+      \ end="\ze\%(\s*\n\)\+\%(\z1\s\)\@!." fold transparent
     highlight link carinataKeyword pythonStatement
-    match carinataKeyword /^\s*\(describe\|context\|before\|let\|it\)/
 endfunction
+
 
 " Non-mappings
 " (stuff deliberately left out because there are better ways of doing things)
