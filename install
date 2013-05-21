@@ -9,8 +9,9 @@ end
 
 module Dotfile
   class Installer
-    def initialize(vundle)
+    def initialize(vundle, abolish)
       @vundle = vundle
+      @abolish = abolish
       directory = Pathname.new(__FILE__).expand_path.dirname
       @dotfiles = directory.children.reject(&:hidden?)
       @home = Pathname.new('~').expand_path
@@ -24,6 +25,7 @@ module Dotfile
       end
 
       install_vundle if @vundle
+      install_abolish if @abolish
     end
 
     def install_vundle
@@ -45,7 +47,23 @@ module Dotfile
         system("vim +BundleInstall! +qall")
       end
     end
+
+    def install_abolish
+      vim_home = Pathname.new(@home.join('.vim'))
+      if !vim_home.exist?
+        vim_home.mkdir
+      end
+
+      abolish_home = vim_home.join('after').join('plugin')
+      if !abolish_home.exist?
+        FileUtils.mkpath abolish_home
+      end
+      abolish_symlink = abolish_home.join('abolish.vim')
+      abolish_homefile = @home.join('.abolish.vim')
+      abolish_symlink.delete if abolish_symlink.exist?
+      File.symlink(abolish_homefile, abolish_symlink)
+    end
   end
 end
 
-Dotfile::Installer.new(true).install
+Dotfile::Installer.new(true, true).install
