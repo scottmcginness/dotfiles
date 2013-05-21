@@ -62,7 +62,7 @@ use_git_prompt=yes
 
 # print '*' to prompt when git status has changed
 function parse_git_dirty {
-  [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit, working directory clean" ]] && echo "*"
+[[ ! $(git status 2> /dev/null | tail -n1) =~ ^nothing\ to\ commit(,\ |\ \()working\ directory\ clean\)?$ ]] && echo "*"
 }
 
 # print current branch (with dirty status) to prompt
