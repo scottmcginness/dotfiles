@@ -400,8 +400,7 @@ vnoremap <leader>re :Rextract<SPACE>
 nnoremap <leader>bp mmOimport ipdb; ipdb.set_trace()<ESC>`m
 
 " Highlight *.carinata files as python with some extra keywords
-autocmd BufNewFile,BufRead *.carinata call SetupCarinata()
-function! SetupCarinata()
+function! CarinataFunction()
     setlocal filetype=python
     syn match   carinataKeyword	/^\s*\%(describe\|context\|before\|after\|it\|let\)/
       \ nextgroup=pythonFunction skipwhite
@@ -409,6 +408,8 @@ function! SetupCarinata()
       \ end="\ze\%(\s*\n\)\+\%(\z1\s\)\@!." fold transparent
     highlight link carinataKeyword pythonStatement
 endfunction
+autocmd BufNewFile,BufRead *.carinata call CarinataFunction()
+command! Carinata call CarinataFunction()
 
 
 " Non-mappings
