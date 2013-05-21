@@ -68,6 +68,7 @@ set shiftwidth=4     " Number of spaces for an indent
 set smarttab         " Backspaces will do a dedent
 set expandtab        " Expand tabs into spaces
 set autoindent       " Indent lines on opening them
+set backspace=2      " indent,eol,start for a usable backspace
 set background=dark  " Always use a dark backgrounded colour scheme
 set hidden           " Hide unsaved buffers
 set number           " Show line numbers
