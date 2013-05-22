@@ -209,7 +209,7 @@ function! ShowHighlightGroup()
 endfunction
 
 " Switch between number and relative number
-nnoremap <F7> :call ToggleRelativeNumber()<CR>
+nnoremap <silent> <F7> :call ToggleRelativeNumber()<CR>
 function! ToggleRelativeNumber()
     if &relativenumber
         set number
@@ -220,6 +220,19 @@ endfunction
 
 " Quick toggle ShowMarks column
 nmap <F8> <leader>mt
+
+" Get file and line into clipboard
+nnoremap <silent> <F9> :call GetFileAndLine()<CR>
+function! GetFileAndLine()
+    let fileline = bufname('%').':'.line('.')
+    if has('clipboard')
+        let @* = fileline
+        echo fileline." (in *-clipboard)"
+    else
+        let @" = fileline
+        echo fileline." (in \"-register)"
+    endif
+endfunction
 
 " Options for session.vim
 set sessionoptions=blank,buffers,curdir,folds,globals,help,localoptions,options,resize,tabpages,winsize,winpos
