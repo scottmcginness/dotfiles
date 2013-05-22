@@ -321,6 +321,10 @@ nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
 nnoremap <leader>bi :BundleInstall<CR>
 
+" Source or edit abolish file
+nnoremap <leader>ea :vsplit ~/.vim/after/plugin/abolish.vim<CR>
+nnoremap <leader>sa :source ~/.vim/after/plugin/abolish.vim<CR>
+
 " Use TAB to get from normal into command mode
 nnoremap <TAB> :
 nnoremap <TAB>w :w<CR>
