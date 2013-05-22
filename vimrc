@@ -224,6 +224,7 @@ nmap <F8> <leader>mt
 " Options for session.vim
 set sessionoptions=blank,buffers,curdir,folds,globals,help,localoptions,options,resize,tabpages,winsize,winpos
 let g:session_autoload = 'no'
+let g:session_autosave = 'no'
 
 " Undo options
 if has("persistent_undo")
