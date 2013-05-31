@@ -7,9 +7,6 @@ function cnd() {
 alias ..='cd ..'
 alias ...='cd ../..'
 
-# Use `ack` instead of `ack-grep`
-alias ack='ack-grep'
-
 # Use clipboard
 alias clip='xclip -sel clip-board'
 
@@ -52,7 +49,13 @@ function nano() {
 # No quit in bash
 :q() { echo "This is bash, not vim. Try CTRL-D"; }
 
+# Edit in vim, from bash
+:e() { echo "You probably meant: vim $1"; }
+
 # Install vim bundles
 function vundle() {
     vim +BundleInstall! +qa!
 }
+
+# Quick python
+alias p=ipython
