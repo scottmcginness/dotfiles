@@ -120,7 +120,7 @@ function nocolor {
     echo -ne "\[\033[0m\]"
 }
 if [ "$color_prompt" = yes ]; then
-    PS1="${debian_chroot:+($debian_chroot)}$(color 22)\u@\h$(color 240)"'$(parse_jobs)'"$(color 22):$(color 25)\w$(color 131)"'$(parse_virtualenv)$(parse_git_branch)$(parse_hg_branch)$(parse_rvm_gemset)'"\n$(color 22)\$$(nocolor) "
+    PS1="${debian_chroot:+($debian_chroot)}$(color 88)\u@\h$(color 160)"'$(parse_jobs)'"$(color 88):$(color 131)\w$(color 203)"'$(parse_virtualenv)$(parse_git_branch)$(parse_hg_branch)$(parse_rvm_gemset)'"\n$(color 88)\$$(nocolor) "
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
