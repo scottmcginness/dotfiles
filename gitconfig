@@ -35,3 +35,5 @@
 	file-view-vpane-position = 414
 [core]
 	pager = less -FRSX
+[push]
+	default = simple
