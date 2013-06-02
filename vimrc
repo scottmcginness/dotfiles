@@ -27,7 +27,6 @@ Bundle 'scrooloose/nerdtree'
 
 Bundle 'vim-scripts/nerdtree-ack'
 Bundle 'vim-scripts/ShowMarks'
-Bundle 'vim-scripts/JavaScript-Indent'
 Bundle 'vim-scripts/django.vim'
 
 Bundle 'Lokaltog/vim-powerline'
@@ -55,6 +54,10 @@ Bundle 'jmcantrell/vim-virtualenv'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'bkad/CamelCaseMotion'
 Bundle 'Python-Syntax-Folding'
+Bundle 'lucapette/vim-jquery-doc'
+Bundle 'pangloss/vim-javascript'
+Bundle 'docunext/closetag.vim'
+
 
 " Various reasonable options
 syntax on
@@ -159,8 +162,22 @@ let NERDTreeIgnore = ['\.pyc$']
 let g:ragtag_global_maps = 1
 
 " Options for vim-surround
-let g:surround_{char2nr("b")} = "{% block \r %}\n{% endblock %}"
-let g:surround_47 = "{% extends \"\r\" %}"
+let g:surround_django_maps = {
+\ "b": "{% block \1block name: \1 %}\n  \r\n{% endblock %}",
+\ "e": "{% extends \"\r\" %}",
+\ "{": "{{ \r }}",
+\ "%": "{% \r %}",
+\ "i": "{% if \1condition: \1 %}\n  \r\n{% endif %}",
+\ "w": "{% with \1with: \1 %}\n  \r\n{% endwith %}",
+\ "f": "{% for \1var: \1 in \2list: \2 %}\n  \r\n{% endfor %}",
+\ "#": "{% comment %}\n  \r\n{% endcomment %}",
+\ }
+autocmd FileType htmldjango call SurroundDjango()
+function! SurroundDjango()
+    for [key, value] in items(g:surround_django_maps)
+        let b:surround_{char2nr(key)} = value
+    endfor
+endfunction
 
 " Options for autopairs
 let g:AutoPairsShortcutToggle = '<leader>ap'
@@ -320,6 +337,7 @@ nnoremap <silent> <leader>gt :GitGutterToggle<CR>
 nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
 nnoremap <leader>bi :BundleInstall<CR>
+nnoremap <leader>bc :BundleClean<CR>
 
 " Source or edit abolish file
 nnoremap <leader>ea :vsplit ~/.vim/after/plugin/abolish.vim<CR>
@@ -363,6 +381,9 @@ nnoremap Y y$
 
 " Join upwards (‘:!man <SOMETHING>’ isn’t so bad)
 nnoremap K kJ
+
+" Go to end of file with gG when my fingers forget it’s just G
+nnoremap gG G
 
 " Use F1 for help
 nnoremap <F1> :h 
