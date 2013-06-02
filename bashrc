@@ -93,6 +93,10 @@ rvm gemset list 2> /dev/null | grep "=>" | sed -e "s/^=> (\?\([^)]*\))\?/($(prom
 fi
 }
 
+function parse_jobs {
+    jobs | sed -e 's/\[\([0-9]\+\)\]\([+-]\)\?.*/\1\2/' | tr '\n' ',' | sed -e 's/^\(.*\),$/[\1]/'
+}
+
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
 # should be on the output of commands, not on the prompt
@@ -116,7 +120,7 @@ function nocolor {
     echo -ne "\[\033[0m\]"
 }
 if [ "$color_prompt" = yes ]; then
-    PS1="${debian_chroot:+($debian_chroot)}$(color 22)\u@\h$(nocolor):$(color 25)\w$(color 131)"'$(parse_virtualenv)$(parse_git_branch)$(parse_hg_branch)$(parse_rvm_gemset)'"\n$(color 22)\$$(nocolor) "
+    PS1="${debian_chroot:+($debian_chroot)}$(color 22)\u@\h$(color 240)"'$(parse_jobs)'"$(color 22):$(color 25)\w$(color 131)"'$(parse_virtualenv)$(parse_git_branch)$(parse_hg_branch)$(parse_rvm_gemset)'"\n$(color 22)\$$(nocolor) "
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
