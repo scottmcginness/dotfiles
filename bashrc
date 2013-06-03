@@ -5,40 +5,31 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
-# don't put duplicate lines in the history. See bash(1) for more options
-# ... or force ignoredups and ignorespace
-HISTCONTROL=ignoreboth
-
+# Don't put duplicate or blank lines in the history, and
 # append to the history file, don't overwrite it
+HISTCONTROL=ignoreboth
 shopt -s histappend
-
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-# When changing directory small typos can be ignored by bash
-# for example, cd /vr/lgo/apaache would find /var/log/apache
-# shopt -s cdspell
-
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
-fi
+# Prompt colors
+theme_host=88
+theme_jobs=160
+theme_dir=131
+theme_env=203
 
-# set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-    xterm-color) color_prompt=yes;;
-esac
+# Prompt settings
+use_prompt_logo=yes  # use logos in the prompt
+use_prompt_rvm=no  # show current gemset in the prompt
 
-prompt_logos=yes
 function prompt_logo {
     logo=""
-    if [[ $prompt_logos = yes ]]; then
+    if [[ $use_prompt_logo = yes ]]; then
         case "$1" in
             git)  logo="⏧ ";;
             hg)   logo="🜐 ";;
@@ -48,17 +39,6 @@ function prompt_logo {
     fi
     echo "$logo"
 }
-
-# enable tab completion in git
-source ~/.git-completion.bash
-
-# Enable tab completion for Fabric
-source ~/.fab-completion.sh
-
-# using git status for the prompt
-# can currently only be used in colour mode
-# uncomment to disable
-use_git_prompt=yes
 
 # print '*' to prompt when git status has changed
 function parse_git_dirty {
@@ -86,32 +66,15 @@ function parse_virtualenv {
     fi
 }
 
-show_gemset=no
 function parse_rvm_gemset {
-if [[ "$show_gemset" = yes ]]; then
-rvm gemset list 2> /dev/null | grep "=>" | sed -e "s/^=> (\?\([^)]*\))\?/($(prompt_logo 'rvm')\1)/"
+if [[ "$use_prompt_rvm" = yes ]]; then
+    rvm gemset list 2> /dev/null | grep "=>" | sed -e "s/^=> (\?\([^)]*\))\?/($(prompt_logo 'rvm')\1)/"
 fi
 }
 
 function parse_jobs {
     jobs | sed -e 's/\[\([0-9]\+\)\]\([+-]\)\?.*/\1\2/' | tr '\n' ',' | sed -e 's/^\(.*\),$/[\1]/'
 }
-
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-force_color_prompt=yes
-
-if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
-    else
-	color_prompt=
-    fi
-fi
 
 function color {
     echo -ne "\[\033[38;5;$1m\]"
@@ -120,27 +83,8 @@ function nocolor {
     echo -ne "\[\033[0m\]"
 }
 
-theme_host=$(color 88)
-theme_jobs=$(color 160)
-theme_dir=$(color 131)
-theme_env=$(color 203)
-theme_text=$(nocolor)
+PS1="${debian_chroot:+($debian_chroot)}$(color $theme_host)\u@\h$(color $theme_jobs)"'$(parse_jobs)'"$(color $theme_host):$(color $theme_dir)\w$(color $theme_env)"'$(parse_virtualenv)$(parse_git_branch)$(parse_hg_branch)$(parse_rvm_gemset)'"\n$(color $theme_host)\$$(nocolor) "
 
-if [ "$color_prompt" = yes ]; then
-    PS1="${debian_chroot:+($debian_chroot)}$theme_host\u@\h$theme_jobs"'$(parse_jobs)'"$theme_host:$theme_dir\w$theme_env"'$(parse_virtualenv)$(parse_git_branch)$(parse_hg_branch)$(parse_rvm_gemset)'"\n$theme_host\$$theme_text "
-else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-fi
-unset color_prompt force_color_prompt
-
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
-esac
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -177,6 +121,14 @@ if [ -n "$BASH_VERSION" -a -n "$PS1" -a -z "$BASH_COMPLETION" ]  &&
     . /etc/bash_completion
 fi
 
+# enable tab completion in git, Fabric and Django
+source ~/.git-completion.bash
+source ~/.fab-completion.sh
+if [ -f "$WORKON_HOME/django_bash_completion" ]; then
+    . $WORKON_HOME/django_bash_completion
+fi
+
+
 export PYTHONSTARTUP="$HOME/.pythonrc"
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Sandbox/Projects
@@ -186,10 +138,6 @@ export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 export PIP_RESPECT_VIRTUALENV=true
 source /usr/local/bin/virtualenvwrapper.sh
-
-if [ -f "$WORKON_HOME/django_bash_completion" ]; then
-    . $WORKON_HOME/django_bash_completion
-fi
 
 # Tell NuGet that it can package restore
 # See http://blog.ianbattersby.com/2012/08/04/using-nuget-with-mono/
