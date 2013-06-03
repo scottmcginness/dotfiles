@@ -17,11 +17,16 @@ shopt -s checkwinsize
 # Make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-# Prompt colors
-theme_host=88
-theme_jobs=160
-theme_dir=131
-theme_env=203
+# Prompt themes
+prompt_theme_red="88 160 131 203"
+prompt_theme_blue="60 111 67 74"
+theme=($prompt_theme_blue)
+
+# Prompt colors (just change theme above)
+theme_host=${theme[0]}
+theme_jobs=${theme[1]}
+theme_dir=${theme[2]}
+theme_env=${theme[3]}
 
 # Prompt settings
 use_prompt_logo=yes  # use logos in the prompt
