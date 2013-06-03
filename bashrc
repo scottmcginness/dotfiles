@@ -114,8 +114,12 @@ if [ -n "$BASH_VERSION" -a -n "$PS1" -a -z "$BASH_COMPLETION" ]  &&
 fi
 
 # Enable tab completion in git, Fabric and Django
-source ~/.git-completion.bash
-source ~/.fab-completion.sh
+if [ -f "$HOME/.git-completion.bash" ]; then
+    . $HOME/.git-completion.bash
+fi
+if [ -f "$HOME/.fab-completion.sh" ]; then
+    . $HOME/.fab-completion.sh
+fi
 if [ -f "$WORKON_HOME/django_bash_completion" ]; then
     . $WORKON_HOME/django_bash_completion
 fi
