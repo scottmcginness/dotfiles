@@ -86,6 +86,14 @@ function parse_jobs {
     jobs | sed -e 's/\[\([0-9]\+\)\]\([+-]\)\?.*/\1\2/' | tr '\n' ',' | sed -e 's/^\(.*\),$/[\1]/'
 }
 
+# Get color codes
+function colorcodes {
+    for i in {0..255}; do
+        echo -e "\e[38;05;${i}m${i}"
+    done | column -c 80 -s '  '
+    echo -e "\e[m"
+}
+
 # Print a 256-color for prompt
 function color {
     echo -ne "\[\033[38;5;$1m\]"
