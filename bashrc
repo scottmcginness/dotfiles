@@ -119,8 +119,15 @@ function color {
 function nocolor {
     echo -ne "\[\033[0m\]"
 }
+
+theme_host=$(color 88)
+theme_jobs=$(color 160)
+theme_dir=$(color 131)
+theme_env=$(color 203)
+theme_text=$(nocolor)
+
 if [ "$color_prompt" = yes ]; then
-    PS1="${debian_chroot:+($debian_chroot)}$(color 88)\u@\h$(color 160)"'$(parse_jobs)'"$(color 88):$(color 131)\w$(color 203)"'$(parse_virtualenv)$(parse_git_branch)$(parse_hg_branch)$(parse_rvm_gemset)'"\n$(color 88)\$$(nocolor) "
+    PS1="${debian_chroot:+($debian_chroot)}$theme_host\u@\h$theme_jobs"'$(parse_jobs)'"$theme_host:$theme_dir\w$theme_env"'$(parse_virtualenv)$(parse_git_branch)$(parse_hg_branch)$(parse_rvm_gemset)'"\n$theme_host\$$theme_text "
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
