@@ -1,3 +1,9 @@
+# Better ls and grep
+alias ls='ls --color=auto --hide=*.pyc'
+alias ll='ls -l'
+alias la='ls -Al'
+alias grep='grep --color=auto -P'
+
 # Not really an alias, but an easy way to change to a new directory
 function cnd() {
 	mkdir $1 && cd $1
