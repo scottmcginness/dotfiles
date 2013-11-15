@@ -366,7 +366,7 @@ imap <C-j> <ESC>A<CR>
 inoremap <C-k> <ESC>O
 
 " Move past characters in insert mode
-inoremap <C-l> <ESC>la
+inoremap <C-l> <ESC>A
 
 " Shortcuts for moving around windows
 nnoremap <C-j> <C-w>j
