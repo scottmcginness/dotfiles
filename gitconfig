@@ -37,3 +37,5 @@
 	pager = less -FRSX
 [push]
 	default = simple
+[merge]
+    tool = meld
