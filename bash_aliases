@@ -53,10 +53,16 @@ function nano() {
 }
 
 # No quit in bash
-:q() { echo "This is bash, not vim. Try CTRL-D"; }
+:q() { echo "This is bash, not vim. Try ‘<Ctrl-d>’ or ‘logout’"; }
 
 # Edit in vim, from bash
-:e() { echo "You probably meant: vim $1"; }
+:e() {
+    read -n1 -p "You probably meant: ‘vim $@’ [Y/n]? " dovim;
+    echo
+    if [ "$dovim" = "y" -o "$dovim" = "" ]; then
+        vim $@
+    fi
+}
 
 # Install vim bundles
 function vundle() {
