@@ -71,3 +71,6 @@ function vundle() {
 
 # Quick python
 alias p=ipython
+
+# Quick tmux
+alias tm='tmux -2'
