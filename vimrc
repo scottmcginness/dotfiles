@@ -6,6 +6,7 @@ call vundle#rc()
 " List bundles
 Bundle 'gmarik/vundle'
 
+Bundle 'tpope/vim-ruby'
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-speeddating'
 Bundle 'tpope/vim-surround'
@@ -57,6 +58,13 @@ Bundle 'Python-Syntax-Folding'
 Bundle 'lucapette/vim-jquery-doc'
 Bundle 'pangloss/vim-javascript'
 Bundle 'docunext/closetag.vim'
+Bundle 'AndrewRadev/sideways.vim'
+Bundle 'othree/html5.vim'
+
+Bundle "MarcWeber/vim-addon-mw-utils"
+Bundle "tomtom/tlib_vim"
+Bundle "garbas/vim-snipmate"
+Bundle "honza/vim-snippets"
 
 
 " Various reasonable options
@@ -89,6 +97,7 @@ let g:mapleader = ","
 " Settings local to filetypes
 autocmd FileType html setlocal tabstop=2 softtabstop=2 shiftwidth=2
 autocmd FileType ruby setlocal tabstop=2 softtabstop=2 shiftwidth=2
+autocmd FileType eruby setlocal tabstop=2 softtabstop=2 shiftwidth=2
 autocmd FileType coffee setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
 " Scrolling options
@@ -450,6 +459,16 @@ endfunction
 autocmd BufNewFile,BufRead *.carinata call CarinataFunction()
 command! Carinata call CarinataFunction()
 
+" Coffeescript indent
+au BufNewFile,BufReadPost *.coffee setl shiftwidth=2 foldmethod=manual
+
+" Shortcut sideways.vim
+nnoremap <leader>sh :SidewaysLeft<CR>
+nnoremap <leader>sl :SidewaysRight<CR>
+
+" SnipMate mapping key is C-c (trying not to conflict with supertab)
+imap <C-c> <Plug>snipMateNextOrTrigger
+smap <C-c> <Plug>snipMateNextOrTrigger
 
 " Non-mappings
 " (stuff deliberately left out because there are better ways of doing things)
