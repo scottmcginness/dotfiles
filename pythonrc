@@ -1,7 +1,5 @@
 # coding: utf-8
 from __future__ import print_function
-import sys
-import traceback
 
 try:
     import readline
@@ -10,23 +8,3 @@ except ImportError:
 else:
     import rlcompleter
     readline.parse_and_bind("tab: complete")
-
-try:
-    import ipdb as pdb
-except ImportError:
-    import pdb
-
-def post_mortem(etype, value, tb):
-    if not sys.stderr.isatty():
-        # Interactive mode, or we don’t have a tty-like device.
-        # Thus, call the default hook
-        sys.__excepthook__(etype, value, tb)
-    else:
-        # We are not in interactive mode, so print the exception
-        traceback.print_exception(etype, value, tb)
-        print()
-
-        # Finally, drop into the debugger
-        pdb.post_mortem(tb)
-
-sys.excepthook = post_mortem
